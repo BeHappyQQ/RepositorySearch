@@ -1,0 +1,81 @@
+body {
+    width: 661px;
+
+    background: #C4C4C4;
+    display: flex;
+    flex-direction: column;
+}
+
+.search {
+    background: #FFF;
+    width: auto;
+    height: max-content;
+}
+
+.search__wrapper {
+    display: flex;
+    max-height: 150px;
+}
+
+.search__input {
+    width: 262px;
+    height: 25px;
+    font-size: 20px;
+    font-weight: 600;
+    padding-left: 5px;
+    padding: 3px;
+}
+
+/* класс для показа выпадающего списка */
+.active {
+    width: 264px;
+    height: 30px;
+    font-size: 20px;
+    border: 1px solid gray;
+    list-style-type: none;
+    display: block;
+    padding-left: 5px;
+    padding: 3px;
+    cursor: pointer;
+}
+.active:hover {
+    background: lightblue;
+}
+
+.selected__list {
+    margin-top: 200px;
+}
+
+.selected__item {
+    margin-top: 5px;
+
+    border: 1px solid #000;
+
+    display: flex;
+    justify-content:space-between;
+
+    background: #E27BEB;
+
+    width: 262px;
+    height: 55px;
+
+    list-style-type: none;
+    padding-top: 10px;
+}
+
+.button__x {
+    background-image: url(x.png);
+    background-size: contain;
+    border: none;
+    background-color:#E27BEB;
+
+
+    width: 30px;
+    height: 30px;
+    margin-right: 20px;
+    margin-top: 5px;
+
+    cursor: pointer;
+   
+}
+
