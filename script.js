@@ -17,21 +17,36 @@ function debounce(fn, debounceTime) {
 };
 
 
-function handleInput () {
+async function handleInput() {
     let searchText = input.value.trim();
-    if(searchText) {
-        searchRepositories(searchText)
-        .then(items => autocomAdd(items))
+    if (searchText) {
+        try {
+            const items = await searchRepositories(searchText);
+            autocomAdd(items);
+        } catch (error) {
+            console.error(`Error handling input: ${error.message}`);
+        }
     }
 }
 
 
 const searchRepositories = async (searchText) => {
-    const url = `https://api.github.com/search/repositories?q=${searchText}`
-    const response = await fetch(url)
-    const data = await response.json()
-    return data.items
-  }
+    try {
+
+        const url = `https://api.github.com/search/repositories?q=${searchText}`
+        const response = await fetch(url)
+
+        if(!response.ok) {
+            throw new Error(`GitHub API request failed: ${response.status}`);
+        }
+    
+        const data = await response.json()
+        return data.items
+
+    } catch(error) {
+        console.error(`Error during GitHub API request: ${error.message}`);
+    }
+}
 
 
 function autocomAdd (items) {
@@ -75,11 +90,9 @@ function addToSelectedList (itemName, itemOwner, itemStars) {
 
 function removeSelected(event) {
     if(event.target.classList.contains("button__x")) {
-        event.target.parentElement.remove()
-
-        removeEventListener("click", function() {
-            addToSelectedList(item.name, item.owner.login, item.stargazers_count)
-        })
+        let itemForDelete = event.target.parentElement
+        itemForDelete.removeEventListener("click", addToSelectedList)
+        itemForDelete.remove()
     }
 
 }
